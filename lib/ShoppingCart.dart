@@ -34,32 +34,66 @@ class ShoppingCartView extends StatelessWidget {
     var cart = context.watch<ShoppingCart>();
 
     return Drawer(
-            child: SingleChildScrollView (
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: cart.getItemsInCart().map((item) {
-                  return Card(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            children: [
-                              item.image,
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: ElevatedButton(onPressed: () => cart.removeItem(item), child: Icon(Icons.close)))
-                            ],
+            width: 450,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView (
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: cart.getItemsInCart().map((item) {
+                        return Card(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stack(
+                                  children: [
+                                    item.image,
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: ElevatedButton(onPressed: () => cart.removeItem(item), child: Icon(Icons.close)))
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Text("${item.cost.toString()} \$")
+                                ),
+                              ]
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(item.cost.toString()),
-                          ),
-                          Icon(Icons.currency_exchange)
-                        ]
-                    ),
-                  );
-                }).toList()
-              )
+                        );
+                      }).toList()
+                    )
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            cart.clearItems();
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                          child: Text('Clear items', style: TextStyle(color: Colors.black)),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Button action
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                          child: Text('Proceed to checkout (${cart.getTotalAmount()} \$)', style: TextStyle(color: Colors.black),),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
     );
   }
@@ -91,6 +125,9 @@ class ShoppingCart extends ChangeNotifier {
 
   }
 
+  int getTotalAmount() {
+    return _items.fold(0, (sum, item) => sum + item.cost);
+  }
   void addItem(Item item){
     _items.add(item);
     notifyListeners();
@@ -105,5 +142,10 @@ class ShoppingCart extends ChangeNotifier {
 
   Widget getShoppingCartView(BuildContext context) {
     return ShoppingCartView();
+  }
+
+  void clearItems(){
+    _items.clear();
+    notifyListeners();
   }
 }
