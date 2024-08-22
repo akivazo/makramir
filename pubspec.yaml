@@ -1,0 +1,42 @@
+name: shopping
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  badges: ^3.1.2
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/item1_1.jpg
+    - assets/images/item1_2.jpg
+    - assets/images/item2_1.jpg
+    - assets/images/item2_2.jpg
+    - assets/images/item2_3.jpg
+    - assets/images/item3_1.jpg
+    - assets/images/item3_2.jpg
+    - assets/images/item4_1.jpg
+    - assets/images/item4_2.jpg
+    - assets/images/item5_1.jpg
+    - assets/images/item5_2.jpg
+    - assets/images/item6_1.jpg
+    - assets/images/item6_2.jpg
+    - assets/images/item7_1.jpg
+    - assets/images/item7_2.jpg
+    - assets/images/item8_1.jpg
+    - assets/images/item8_2.jpg
+    - assets/images/item9_1.jpg
+    - assets/images/item9_2.jpg
+    - assets/images/logo.jpg
