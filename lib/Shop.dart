@@ -1,12 +1,14 @@
+import 'package:shopping/ShoppingCart.dart';
+
 import 'Item.dart';
 import 'package:flutter/material.dart';
 
 class ItemShopView extends StatefulWidget {
   final Item item;
-  final void Function(Item) addToCart;
+  final ShoppingCart cart;
 
 
-  ItemShopView({super.key, required this.item, required this.addToCart});
+  ItemShopView({super.key, required this.item, required this.cart});
 
   @override
   State<ItemShopView> createState() => _ItemShopViewState();
@@ -14,9 +16,28 @@ class ItemShopView extends StatefulWidget {
 
 class _ItemShopViewState extends State<ItemShopView> {
   bool inCart = false;
+
   @override
   Widget build(BuildContext context) {
-    var itemImage = inCart ? Stack(children: [widget.item.image, Text("Already in cart")]) : widget.item.image;
+    var itemImage = inCart ? Stack(children: [widget.item.image, const Text("Already in cart", style: TextStyle(color: Colors.white),)]) : widget.item.image;
+    var itemAction = inCart ? ElevatedButton(
+      onPressed: () {
+        widget.cart.removeItem(widget.item);
+        setState(() {
+          inCart = false;
+        });
+      },
+      child: Text("Return item"),
+    ) :
+    ElevatedButton(
+      onPressed: () {
+        widget.cart.addItem(widget.item);
+        setState(() {
+          inCart = true;
+        });
+      },
+      child: Text("Pick item"),
+    );
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -25,20 +46,7 @@ class _ItemShopViewState extends State<ItemShopView> {
         child: Column(
           children: [
             itemImage,
-
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      widget.addToCart(widget.item);
-                      setState(() {
-                        inCart = true;
-                      });
-                    },
-                    child: Text("Add to cart")
-                ),
-              ],
-            )
+            itemAction
           ],
         ),
       ),
@@ -48,8 +56,8 @@ class _ItemShopViewState extends State<ItemShopView> {
 
 class ItemsShopView extends StatelessWidget {
   final Set<Item> items;
-  final void Function(Item) addToCart;
-  const ItemsShopView({super.key, required this.items, required this.addToCart});
+  final ShoppingCart cart;
+  const ItemsShopView({super.key, required this.items, required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +76,7 @@ class ItemsShopView extends StatelessWidget {
             primary: false,
             shrinkWrap: true,
             padding: const EdgeInsets.all(20),
-            children: items.map((item) => ItemShopView(item: item, addToCart: addToCart)).toList()
+            children: items.map((item) => ItemShopView(item: item, cart: cart,)).toList()
         ),
       ),
     );

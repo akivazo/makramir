@@ -75,7 +75,7 @@ class ShoppingCart extends ChangeNotifier {
     return ElevatedButton(
         onPressed: () => showShoppingCart(scaffoldKey),
         child: badges.Badge(
-          badgeContent: Text(getNumberOfItemsInCart().toString(), style: TextStyle(fontSize: 17, color: Colors.black)),
+          badgeContent: Text(getNumberOfItemsInCart().toString(), style: TextStyle(fontSize: 17, color: Colors.white)),
           child: Icon(Icons.shopping_bag, size: 35,),
         )
     );
