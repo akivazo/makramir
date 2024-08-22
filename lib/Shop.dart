@@ -1,40 +1,29 @@
 import 'package:shopping/ShoppingCart.dart';
+import 'package:provider/provider.dart';
 
 import 'Item.dart';
 import 'package:flutter/material.dart';
 
-class ItemShopView extends StatefulWidget {
+class ItemShopView extends StatelessWidget {
   final Item item;
-  final ShoppingCart cart;
 
 
-  ItemShopView({super.key, required this.item, required this.cart});
-
-  @override
-  State<ItemShopView> createState() => _ItemShopViewState();
-}
-
-class _ItemShopViewState extends State<ItemShopView> {
-  bool inCart = false;
-
+  ItemShopView({super.key, required this.item});
   @override
   Widget build(BuildContext context) {
-    var itemImage = inCart ? Stack(children: [widget.item.image, const Text("Already in cart", style: TextStyle(color: Colors.white),)]) : widget.item.image;
+    var cart = context.watch<ShoppingCart>();
+    bool inCart = cart.isInCart(item);
+    var itemImage = inCart ? Stack(children: [item.image, const Text("Already in cart", style: TextStyle(color: Colors.white),)]) : item.image;
     var itemAction = inCart ? ElevatedButton(
       onPressed: () {
-        widget.cart.removeItem(widget.item);
-        setState(() {
-          inCart = false;
-        });
+        cart.removeItem(item);
       },
       child: Text("Return item"),
     ) :
     ElevatedButton(
       onPressed: () {
-        widget.cart.addItem(widget.item);
-        setState(() {
-          inCart = true;
-        });
+        cart.addItem(item);
+
       },
       child: Text("Pick item"),
     );
@@ -56,8 +45,7 @@ class _ItemShopViewState extends State<ItemShopView> {
 
 class ItemsShopView extends StatelessWidget {
   final Set<Item> items;
-  final ShoppingCart cart;
-  const ItemsShopView({super.key, required this.items, required this.cart});
+  const ItemsShopView({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +64,7 @@ class ItemsShopView extends StatelessWidget {
             primary: false,
             shrinkWrap: true,
             padding: const EdgeInsets.all(20),
-            children: items.map((item) => ItemShopView(item: item, cart: cart,)).toList()
+            children: items.map((item) => ItemShopView(item: item)).toList()
         ),
       ),
     );

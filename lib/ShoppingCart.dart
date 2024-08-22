@@ -148,4 +148,8 @@ class ShoppingCart extends ChangeNotifier {
     _items.clear();
     notifyListeners();
   }
+
+  bool isInCart(Item item){
+    return _items.contains(item);
+  }
 }

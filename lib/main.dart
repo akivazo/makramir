@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: ItemsShopView(items: itemsStorage.getItems(), cart: cart,),
+                      child: ItemsShopView(items: itemsStorage.getItems()),
                     )
                   ]
           ),
