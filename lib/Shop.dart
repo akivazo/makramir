@@ -17,28 +17,30 @@ class _ItemShopViewState extends State<ItemShopView> {
   @override
   Widget build(BuildContext context) {
     var itemImage = inCart ? Stack(children: [widget.item.image, Text("Already in cart")]) : widget.item.image;
-    return Card(
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(
-              padding: EdgeInsets.all(18),
-              child: itemImage
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    widget.addToCart(widget.item);
-                    setState(() {
-                      inCart = true;
-                    });
-                  },
-                  child: Text("addToCart")
-              ),
-            ],
-          )
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colors.transparent,
+        elevation: 2,
+        child: Column(
+          children: [
+            itemImage,
+
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      widget.addToCart(widget.item);
+                      setState(() {
+                        inCart = true;
+                      });
+                    },
+                    child: Text("Add to cart")
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -55,7 +57,8 @@ class ItemsShopView extends StatelessWidget {
       initialScrollOffset: MediaQuery.of(context).size.width / 2,
     );
     return SizedBox(
-      height: 550,
+      height: 500,
+
       child: Scrollbar(
         controller: controller,
         child: ListView(

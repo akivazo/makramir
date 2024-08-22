@@ -24,10 +24,16 @@ class MainApp extends StatelessWidget {
     var cart = context.watch<ShoppingCart>();
     return MaterialApp(
       home: Scaffold(
+
         key: scaffoldKey,
         drawer: cart.getShoppingCartView(context),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/logo.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Stack(
                   children: [
                      SafeArea(
