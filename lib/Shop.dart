@@ -50,7 +50,7 @@ class ItemsShopView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = ScrollController(
-      initialScrollOffset: MediaQuery.of(context).size.width / 2,
+      initialScrollOffset: 0,
     );
     return SizedBox(
       height: 500,
