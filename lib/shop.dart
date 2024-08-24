@@ -1,7 +1,7 @@
-import 'package:shopping/ShoppingCart.dart';
+import 'package:shopping/shopping_cart.dart';
 import 'package:provider/provider.dart';
 
-import 'Item.dart';
+import 'item.dart';
 import 'package:flutter/material.dart';
 
 class ItemShopView extends StatelessWidget {
