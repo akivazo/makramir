@@ -37,33 +37,31 @@ class ShoppingCartView extends StatelessWidget {
             width: 450,
             child: Column(
               children: [
-                Expanded(
-                  child: SingleChildScrollView (
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: cart.getItemsInCart().map((item) {
-                        return Card(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Stack(
-                                  children: [
-                                    item.image,
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: ElevatedButton(onPressed: () => cart.removeItem(item), child: Icon(Icons.close)))
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Text("${item.cost.toString()} \$")
-                                ),
-                              ]
-                          ),
-                        );
-                      }).toList()
-                    )
-                  ),
+                SingleChildScrollView (
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: cart.getItemsInCart().map((item) {
+                      return Card(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Stack(
+                                children: [
+                                  item.image,
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: ElevatedButton(onPressed: () => cart.removeItem(item), child: Icon(Icons.close)))
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Text("${item.cost.toString()} \$")
+                              ),
+                            ]
+                        ),
+                      );
+                    }).toList()
+                  )
                 ),
                 Container(
                   padding: EdgeInsets.all(16.0),
