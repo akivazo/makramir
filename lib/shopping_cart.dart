@@ -25,7 +25,7 @@ class ItemCartView extends StatelessWidget {
         ),
         Padding(
             padding: const EdgeInsets.all(20),
-            child: Text("${item.cost.toString()} \$")),
+            child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.red),)),
       ]),
     );
   }
@@ -45,7 +45,7 @@ class ItemsInCartView extends StatelessWidget {
   }
 }
 
-class CheckoutButton extends StatelessWidget {
+class ClearItemsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
@@ -60,7 +60,7 @@ class CheckoutButton extends StatelessWidget {
   }
 }
 
-class ClearItemsButton extends StatelessWidget {
+class CheckoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
@@ -80,26 +80,27 @@ class ClearItemsButton extends StatelessWidget {
 class ShoppingCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      width: 500,
-      child: Column(
-        children: [
-          Expanded(child: ItemsInCartView()),
-          Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CheckoutButton()),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClearItemsButton()),
-              ],
-            ),
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth - (constraint.maxWidth / 8);
+        return Drawer(
+          width: drawerWidth.toDouble(),
+          child: Column(
+            children: [
+              Expanded(child: ItemsInCartView()),
+              Card(
+                child: Wrap(
+                  spacing: 10,
+                  children: [
+                    CheckoutButton(),
+                    ClearItemsButton(),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
