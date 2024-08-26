@@ -28,10 +28,20 @@ class MainApp extends StatelessWidget {
               children: [
                 SingleChildScrollView(
                   child: Column(
-                    children: [Align(child: Logo(), alignment: Alignment(-0.25, 0),), Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Introduction(),
-                    ), ItemsView(), SizedBox(height: 100,)],
+                    children: [
+                      Align(
+                        child: Logo(),
+                        alignment: Alignment(-0.25, 0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Introduction(),
+                      ),
+                      ItemsView(),
+                      SizedBox(
+                        height: 100,
+                      )
+                    ],
                   ),
                 ),
                 Align(
@@ -80,7 +90,6 @@ class Logo extends StatelessWidget {
       width: 500,
     );
   }
-
 }
 
 class Introduction extends StatelessWidget {
@@ -89,13 +98,9 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-    '''Thanks to this SO answer for providing all the details! The below workflow has been tested on a Windows machine.
-                                      Enable Developer Options on the Android phone. Toggle USB debugging option.
-                                  Connect your Android phone with a USB cable and accept whatever pop up appears.
-                                  You should now see your phone listed. Running flutter devices should also list the device.''',
-    style: TextStyle(color: Colors.black, fontSize: 30),
-        );
+      '''Welcome to Miryam’s Macrame Creations! 🌟 Dive into a world of intricate knots and beautiful designs, all handcrafted with love by Miryam herself. Each piece is a testament to her passion for this timeless art form, blending traditional techniques with modern aesthetics. From elegant wall hangings to charming plant holders, Miryam’s creations are perfect for adding a touch of bohemian elegance to any space. Explore our collection and find the perfect piece to bring warmth and creativity into your home. Every item is made with care, ensuring you receive a unique and high-quality product that you’ll cherish for years to come.''',
+      style: TextStyle(color: Colors.blueGrey, fontSize: 30),
+      textAlign: TextAlign.center,
+    );
   }
 }
-
-
