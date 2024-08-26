@@ -1,4 +1,4 @@
-import 'package:shopping/shopping_cart.dart';
+import 'shopping_cart.dart';
 import 'package:provider/provider.dart';
 
 import 'item.dart';

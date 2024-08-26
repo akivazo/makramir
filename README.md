@@ -1,3 +1,5 @@
-# shopping
+# macramir
 
-A new Flutter project.
+beautiful macrame products
+
+מוצרי מקרמה יפים ואיכותיים

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'item.dart';
+import 'checkout_manager.dart';
 
 class ItemCartView extends StatelessWidget {
   final Item item;
@@ -66,7 +67,8 @@ class CheckoutButton extends StatelessWidget {
     var cart = context.watch<ShoppingCart>();
     return ElevatedButton(
       onPressed: () {
-        // Button action
+        var checkoutManager = CheckoutManager(itemsToCheckout: cart.getItemsInCart());
+        Navigator.push(context, MaterialPageRoute(builder: (context) => checkoutManager.getCheckoutView()));
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       child: Text(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'shopping_cart.dart';
-import 'package:shopping/items_storage.dart';
-import 'package:shopping/shop.dart';
+import 'items_storage.dart';
+import 'shop.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
