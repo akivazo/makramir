@@ -12,6 +12,7 @@ dependencies:
   badges: ^3.1.2
   provider: ^6.1.2
   firebase_database: ^11.0.4
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -41,4 +42,4 @@ flutter:
     - assets/images/item9_1.jpg
     - assets/images/item9_2.jpg
     - assets/images/logo.jpg
-    - assets/text/introduction.txt
+    - assets/fonts/Caveat/static/Caveat-Bold.ttf

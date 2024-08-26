@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'item.dart';
+import 'payment.dart';
 
 class CheckoutManager {
   final Set<Item> itemsToCheckout;
 
   CheckoutManager({required this.itemsToCheckout});
 
-  CheckoutView getCheckoutView() {
-    return CheckoutView(
-      itemsToCheckout: itemsToCheckout,
-    );
+  CheckoutView getCheckoutView(BuildContext context) {
+    void openPaymentTerminalDelegate(Map<String, String> clientDetails) {
+
+
+      var paymentManager = PaymentManager();
+      var paymentView = paymentManager.getPaymentTerminalView(clientDetails,
+          itemsToCheckout.fold(0, (cost, item) => item.cost + cost));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => paymentView));
+    }
+
+    return CheckoutView(openPaymentTerminal: openPaymentTerminalDelegate);
   }
 }
 
@@ -101,6 +110,9 @@ class AddressField extends FormField {
 class CheckoutForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, String> _fieldsMap = {};
+  final void Function(Map<String, String> clientDetails) paymentMethod;
+
+  CheckoutForm({super.key, required this.paymentMethod});
 
   void _setFieldValue(String key, String value) {
     _fieldsMap[key] = value;
@@ -141,14 +153,20 @@ class CheckoutForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (saveForm()){
-
+                      if (saveForm()) {
+                        paymentMethod(_fieldsMap);
                       }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
-                      children: [Text("Payment", style: TextStyle(color: Colors.black),), Icon(Icons.navigate_next)],
+                      children: [
+                        Text(
+                          "Payment",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        Icon(Icons.navigate_next)
+                      ],
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,
@@ -161,7 +179,6 @@ class CheckoutForm extends StatelessWidget {
         }),
       ),
     );
-
   }
 
   bool saveForm() {
@@ -171,15 +188,16 @@ class CheckoutForm extends StatelessWidget {
     }
     return false;
   }
+
   Map<String, String> getFieldsValues() {
     return _fieldsMap;
   }
 }
 
 class CheckoutView extends StatelessWidget {
-  final Set<Item> itemsToCheckout;
+  final void Function(Map<String, String>) openPaymentTerminal;
 
-  CheckoutView({super.key, required this.itemsToCheckout});
+  CheckoutView({super.key, required this.openPaymentTerminal});
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +211,10 @@ class CheckoutView extends StatelessWidget {
           },
         ),
       ),
-      body: Center(child: CheckoutForm()),
+      body: Center(
+          child: CheckoutForm(
+        paymentMethod: openPaymentTerminal,
+      )),
     );
   }
 }

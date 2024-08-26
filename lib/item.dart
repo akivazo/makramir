@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Item {
   final int id;
-  final Widget image;
+  final Image image;
   final String description;
   final int cost;
 

@@ -68,7 +68,7 @@ class CheckoutButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         var checkoutManager = CheckoutManager(itemsToCheckout: cart.getItemsInCart());
-        Navigator.push(context, MaterialPageRoute(builder: (context) => checkoutManager.getCheckoutView()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => checkoutManager.getCheckoutView(context)));
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       child: Text(
