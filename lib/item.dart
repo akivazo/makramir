@@ -6,12 +6,15 @@ class Item {
   final Image image;
   final String description;
   final int cost;
+  final Set<Image>? extraImages;
 
   const Item({
     required this.id,
     required this.image,
     this.description = "no description is available",
-    this.cost = 0
+    this.cost = 0,
+    this.extraImages
+
   });
 
   @override
