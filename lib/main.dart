@@ -69,7 +69,7 @@ class ShoppingCartDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
-    return cart.getShoppingCartView(context);
+    return cart.getShoppingCartView(scaffoldKey);
   }
 }
 

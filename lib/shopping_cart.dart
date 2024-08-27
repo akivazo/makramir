@@ -24,9 +24,12 @@ class ItemCartView extends StatelessWidget {
                     child: Icon(Icons.close)))
           ],
         ),
-        Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.red),)),
+        Expanded(
+          child: Card(elevation: 2, child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.black),),
+          )),
+        ),
       ]),
     );
   }
@@ -80,25 +83,34 @@ class CheckoutButton extends StatelessWidget {
 }
 
 class ShoppingCartView extends StatelessWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ShoppingCartView({super.key, required this.scaffoldKey});
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraint) {
-        var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth - (constraint.maxWidth / 8);
+        var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth;
         return Drawer(
           width: drawerWidth.toDouble(),
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: ItemsInCartView()),
-              Card(
-                child: Wrap(
-                  spacing: 10,
-                  children: [
-                    CheckoutButton(),
-                    ClearItemsButton(),
-                  ],
-                ),
+              Column(
+                children: [
+                  Expanded(child: ItemsInCartView()),
+                  Card(
+                    child: Wrap(
+                      spacing: 10,
+                      children: [
+                        CheckoutButton(),
+                        ClearItemsButton(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+              Align(child: ElevatedButton.icon(label: Text("close"), onPressed: scaffoldKey.currentState!.closeDrawer, icon: Icon(Icons.arrow_back)), alignment: Alignment(1, 0),),
             ],
           ),
         );
@@ -150,8 +162,8 @@ class ShoppingCart extends ChangeNotifier {
     return getItemsInCart().length;
   }
 
-  Widget getShoppingCartView(BuildContext context) {
-    return ShoppingCartView();
+  Widget getShoppingCartView(GlobalKey<ScaffoldState> scaffoldKey) {
+    return ShoppingCartView(scaffoldKey: scaffoldKey,);
   }
 
   void clearItems() {

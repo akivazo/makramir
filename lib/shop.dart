@@ -84,7 +84,7 @@ class ItemShopView extends StatelessWidget {
         ? Stack(children: [
       item.image,
       const Text(
-        "Already in cart",
+        "Already in the bag",
         style: TextStyle(color: Colors.white),
       )
     ])
