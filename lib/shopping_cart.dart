@@ -24,12 +24,10 @@ class ItemCartView extends StatelessWidget {
                     child: Icon(Icons.close)))
           ],
         ),
-        Expanded(
-          child: Card(elevation: 2, child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.black),),
-          )),
-        ),
+        Card(elevation: 2, child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.black),),
+        )),
       ]),
     );
   }
@@ -39,12 +37,26 @@ class ItemsInCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-          children: cart.getItemsInCart().map((item) {
-        return ItemCartView(item: item);
-      }).toList()),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+              children: cart.getItemsInCart().map((item) {
+                return ItemCartView(item: item);
+              }).toList())),
+        ),
+        Card(
+          child: Wrap(
+            spacing: 10,
+            children: [
+              CheckoutButton(),
+              ClearItemsButton(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -82,6 +94,24 @@ class CheckoutButton extends StatelessWidget {
   }
 }
 
+class EmptyCartView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("No items were picked", style: TextStyle(fontSize: 20),),
+            Text(
+              "Add items by pressing the 'Pick Item' button under the item image.",
+              maxLines: 2, textAlign: TextAlign.center,)
+          ],
+        ));
+  }
+
+
+}
 class ShoppingCartView extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -91,25 +121,14 @@ class ShoppingCartView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraint) {
         var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth;
+        var cart = context.watch<ShoppingCart>();
+        var drawerBody = cart.getNumberOfItemsInCart() == 0 ? Expanded(child: EmptyCartView()) : Expanded(child: ItemsInCartView());
         return Drawer(
           width: drawerWidth.toDouble(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  Expanded(child: ItemsInCartView()),
-                  Card(
-                    child: Wrap(
-                      spacing: 10,
-                      children: [
-                        CheckoutButton(),
-                        ClearItemsButton(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              drawerBody,
               Align(child: ElevatedButton.icon(label: Text("close"), onPressed: scaffoldKey.currentState!.closeDrawer, icon: Icon(Icons.arrow_back)), alignment: Alignment(1, 0),),
             ],
           ),
@@ -117,6 +136,7 @@ class ShoppingCartView extends StatelessWidget {
       }
     );
   }
+
 }
 
 class ShoppingCart extends ChangeNotifier {
