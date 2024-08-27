@@ -153,9 +153,10 @@ class CheckoutForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (saveForm()) {
+                      /**if (saveForm()) {
                         paymentMethod(_fieldsMap);
-                      }
+                      }**/
+                      paymentMethod(_fieldsMap);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
