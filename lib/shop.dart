@@ -15,31 +15,31 @@ class ResponsiveImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-
-
-
-      onTap: () {
-        showDialog(context: context, builder: (context) =>
-            Dialog(
-              child: Card(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Wrap(children: images, spacing: 10,),
-                    Text(description),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(onPressed: () {
-                        Navigator.pop(context);
-                      }, child: Text("Close")),
-                    )
-                  ],
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          showDialog(context: context, builder: (context) =>
+              Dialog(
+                child: Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Wrap(children: images, spacing: 10,),
+                      Text(description),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(onPressed: () {
+                          Navigator.pop(context);
+                        }, child: Text("Close")),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ));
-      },
-      child: imageView,);
+              ));
+        },
+        child: imageView,),
+    );
   }
 
 }
