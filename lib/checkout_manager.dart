@@ -125,62 +125,65 @@ class CheckoutForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: Card(
-        elevation: 20,
-        child: LayoutBuilder(builder: (context, constraint) {
-          return Container(
-            width: constraint.maxWidth / 3,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Center(
-                    child: Text(
-                      AppLocalizations.of(context)!.checkoutFormTitle,
-                  style: TextStyle(fontSize: 20),
-                )),
-                Form(
-                    key: _formKey,
-                    child: ListView(
-                      shrinkWrap: true,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-                      children: [
-                        FirstNameField(saveFieldValue: _setFieldValue),
-                        LastNameField(saveFieldValue: _setFieldValue),
-                        EmailField(saveFieldValue: _setFieldValue),
-                        AddressField(saveFieldValue: _setFieldValue)
-                      ],
-                    )),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      /**if (saveForm()) {
+      child: SizedBox(
+        height: 400,
+        child: Card(
+          elevation: 20,
+          child: LayoutBuilder(builder: (context, constraint) {
+            return Container(
+              width: constraint.maxWidth > 400 ? constraint.maxWidth / 3 : constraint.maxWidth * (2/3),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.checkoutFormTitle,
+                    style: TextStyle(fontSize: 20),
+                  )),
+                  Form(
+                      key: _formKey,
+                      child: ListView(
+                        shrinkWrap: true,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                        children: [
+                          FirstNameField(saveFieldValue: _setFieldValue),
+                          LastNameField(saveFieldValue: _setFieldValue),
+                          EmailField(saveFieldValue: _setFieldValue),
+                          AddressField(saveFieldValue: _setFieldValue)
+                        ],
+                      )),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        /**if (saveForm()) {
+                          paymentMethod(_fieldsMap);
+                        }**/
                         paymentMethod(_fieldsMap);
-                      }**/
-                      paymentMethod(_fieldsMap);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.checkoutSaveButton,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        Icon(Icons.navigate_next)
-                      ],
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.checkoutSaveButton,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Icon(Icons.navigate_next)
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                      ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          );
-        }),
+                  )
+                ],
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -217,8 +220,8 @@ class CheckoutView extends StatelessWidget {
       ),
       body: Center(
           child: CheckoutForm(
-        paymentMethod: openPaymentTerminal,
-      )),
+                  paymentMethod: openPaymentTerminal,
+                )),
     );
   }
 }
