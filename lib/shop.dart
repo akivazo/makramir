@@ -3,17 +3,63 @@ import 'package:provider/provider.dart';
 import 'item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
+
+class ItemDetailsDialog extends StatelessWidget {
+
+  final String description;
+  final List<Image> images;
+
+  const ItemDetailsDialog({super.key,
+    required this.description,
+    required this.images});
+
+  @override
+  Widget build(BuildContext context) {
+    Axis direction = MediaQuery
+        .of(context)
+        .size
+        .width > 500 ? Axis.horizontal : Axis.vertical;
+    return Dialog(
+      child: Card(
+        child: SingleChildScrollView(
+          scrollDirection: direction,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Wrap(
+                direction: direction,
+                children: images,
+                spacing: 10,
+              ),
+              Text(description),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(AppLocalizations.of(context)!
+                        .closeItemDetailsDialog)),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+}
 
 class ResponsiveImage extends StatelessWidget {
   final Widget imageView;
   final String description;
   final List<Image> images;
 
-  const ResponsiveImage(
-      {super.key,
-      required this.imageView,
-      required this.description,
-      required this.images});
+  const ResponsiveImage({super.key,
+    required this.imageView,
+    required this.description,
+    required this.images});
 
   @override
   Widget build(BuildContext context) {
@@ -23,34 +69,14 @@ class ResponsiveImage extends StatelessWidget {
         onTap: () {
           showDialog(
               context: context,
-              builder: (context) => Dialog(
-                    child: Card(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Wrap(
-                            children: images,
-                            spacing: 10,
-                          ),
-                          Text(description),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(AppLocalizations.of(context)!
-                                    .closeItemDetailsDialog)),
-                          )
-                        ],
-                      ),
-                    ),
-                  ));
+              builder: (context) => ItemDetailsDialog(description: description, images: images,));
         },
         child: imageView,
       ),
     );
   }
+
+
 }
 
 class ItemShopView extends StatelessWidget {
@@ -91,29 +117,29 @@ class ItemShopView extends StatelessWidget {
   Widget getItemImage(BuildContext context, bool inCart) {
     return inCart
         ? Stack(children: [
-            item.image,
-            Text(
-              AppLocalizations.of(context)!.alreadyInBag,
-              style: TextStyle(color: Colors.white),
-            )
-          ])
+      item.image,
+      Text(
+        AppLocalizations.of(context)!.alreadyInBag,
+        style: TextStyle(color: Colors.white),
+      )
+    ])
         : item.image;
   }
 
   Widget getItemAction(BuildContext context, bool inCart, ShoppingCart cart) {
     return inCart
         ? ElevatedButton(
-            onPressed: () {
-              cart.removeItem(item);
-            },
-            child: Text(AppLocalizations.of(context)!.returnItem),
-          )
+      onPressed: () {
+        cart.removeItem(item);
+      },
+      child: Text(AppLocalizations.of(context)!.returnItem),
+    )
         : ElevatedButton(
-            onPressed: () {
-              cart.addItem(item);
-            },
-            child: Text(AppLocalizations.of(context)!.addItem),
-          );
+      onPressed: () {
+        cart.addItem(item);
+      },
+      child: Text(AppLocalizations.of(context)!.addItem),
+    );
   }
 }
 

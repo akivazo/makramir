@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
-        //Locale('en'), // English
+        Locale('en'), // English
         Locale('he'), // Hebrew
       ],
       home: Scaffold(

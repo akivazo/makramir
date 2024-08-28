@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,11 @@ class ItemCartView extends StatelessWidget {
         ),
         Card(elevation: 2, child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.black),),
+          child: Row(
+            children: [
+              Text(AppLocalizations.of(context)!.itemCost(item.cost), style: TextStyle(color: Colors.black),),
+            ],
+          ),
         )),
       ]),
     );
