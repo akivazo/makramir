@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'item.dart';
 import 'payment.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CheckoutManager {
   final Set<Item> itemsToCheckout;
@@ -34,12 +35,12 @@ class FirstNameField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'First Name'),
+      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.firstName),
       autofocus: true,
       onSaved: (value) => saveFieldValue("first_name", value ?? ''),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your first name';
+          return AppLocalizations.of(context)!.firstNameInvalid;
         }
         return null;
       },
@@ -53,12 +54,12 @@ class LastNameField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Last Name'),
+      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.lastName),
       autofocus: false,
       onSaved: (value) => saveFieldValue("last_name", value ?? ''),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your last name';
+          return AppLocalizations.of(context)!.lastNameInvalid;
         }
         return null;
       },
@@ -72,15 +73,15 @@ class EmailField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
+      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.email),
       autofocus: true,
       onSaved: (value) => saveFieldValue("email", value ?? ''),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your email';
+          return AppLocalizations.of(context)!.emailInvalid;
         }
         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-          return 'Please enter a valid email address';
+          return AppLocalizations.of(context)!.emailInvalid;
         }
         return null;
       },
@@ -94,12 +95,14 @@ class AddressField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Address'),
+      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.address
+
+      ),
       autofocus: false,
       onSaved: (value) => saveFieldValue("address", value ?? ''),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your address';
+          return AppLocalizations.of(context)!.addressInvalid;
         }
         return null;
       },
@@ -132,7 +135,7 @@ class CheckoutForm extends StatelessWidget {
               children: [
                 Center(
                     child: Text(
-                  "Enter your information:",
+                      AppLocalizations.of(context)!.checkoutFormTitle,
                   style: TextStyle(fontSize: 20),
                 )),
                 Form(
@@ -163,7 +166,7 @@ class CheckoutForm extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Payment",
+                          AppLocalizations.of(context)!.checkoutSaveButton,
                           style: TextStyle(color: Colors.black),
                         ),
                         Icon(Icons.navigate_next)
@@ -204,7 +207,7 @@ class CheckoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Checkout'),
+        title: Text(AppLocalizations.of(context)!.checkoutPageTitle),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

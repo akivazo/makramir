@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'item.dart';
 import 'checkout_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ItemCartView extends StatelessWidget {
   final Item item;
@@ -71,7 +72,7 @@ class ClearItemsButton extends StatelessWidget {
         cart.clearItems();
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-      child: Text('Clear items', style: TextStyle(color: Colors.black)),
+      child: Text(AppLocalizations.of(context)!.cartClearItems, style: TextStyle(color: Colors.black)),
     );
   }
 }
@@ -87,7 +88,7 @@ class CheckoutButton extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       child: Text(
-        'Proceed to checkout (${cart.getTotalAmount()} \$)',
+        AppLocalizations.of(context)!.proceedToCheckout(cart.getTotalAmount()),
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -97,14 +98,14 @@ class CheckoutButton extends StatelessWidget {
 class EmptyCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
         width: 300,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("No items were picked", style: TextStyle(fontSize: 20),),
+            Text(AppLocalizations.of(context)!.noItemsInBag, style: TextStyle(fontSize: 20),),
             Text(
-              "Add items by pressing the 'Pick Item' button under the item image.",
+              AppLocalizations.of(context)!.emptyBagTip,
               maxLines: 2, textAlign: TextAlign.center,)
           ],
         ));
@@ -129,7 +130,7 @@ class ShoppingCartView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               drawerBody,
-              Align(child: ElevatedButton.icon(label: Text("close"), onPressed: scaffoldKey.currentState!.closeDrawer, icon: Icon(Icons.arrow_back)), alignment: Alignment(1, 0),),
+              Align(child: ElevatedButton.icon(label: Text(AppLocalizations.of(context)!.closeDrawer), onPressed: scaffoldKey.currentState!.closeDrawer, icon: Icon(Icons.arrow_back)), alignment: Alignment(1, 0),),
             ],
           ),
         );

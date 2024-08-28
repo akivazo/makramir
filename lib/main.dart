@@ -4,6 +4,8 @@ import 'shopping_cart.dart';
 import 'items_storage.dart';
 import 'shop.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -18,6 +20,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        //Locale('en'), // English
+        Locale('he'), // Hebrew
+      ],
       home: Scaffold(
         key: scaffoldKey,
         drawer: ShoppingCartDrawer(),
@@ -33,7 +45,6 @@ class MainApp extends StatelessWidget {
                       Align(
                         child: Logo(),
                         alignment: Alignment(-0.25, 0),
-
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -98,9 +109,9 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '''Welcome to Miryam’s Macrame Creations! 🌟 Dive into a world of intricate knots and beautiful designs, all handcrafted with love by Miryam herself. Each piece is a testament to her passion for this timeless art form, blending traditional techniques with modern aesthetics. From elegant wall hangings to charming plant holders, Miryam’s creations are perfect for adding a touch of bohemian elegance to any space. Explore our collection and find the perfect piece to bring warmth and creativity into your home. Every item is made with care, ensuring you receive a unique and high-quality product that you’ll cherish for years to come.''',
+      AppLocalizations.of(context)!.introduction,
       style: GoogleFonts.caveat(
-        textStyle: TextStyle(color: Colors.deepPurple, fontSize: 40)),
+          textStyle: TextStyle(color: Colors.deepPurple, fontSize: 40)),
       textAlign: TextAlign.center,
     );
   }

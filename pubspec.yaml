@@ -13,6 +13,9 @@ dependencies:
   provider: ^6.1.2
   firebase_database: ^11.0.4
   google_fonts: ^6.2.1
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -21,6 +24,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/images/item1_1.jpg
     - assets/images/item1_2.jpg

@@ -1,8 +1,8 @@
 import 'shopping_cart.dart';
 import 'package:provider/provider.dart';
-
 import 'item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResponsiveImage extends StatelessWidget {
   final Widget imageView;
@@ -10,40 +10,48 @@ class ResponsiveImage extends StatelessWidget {
   final List<Image> images;
 
   const ResponsiveImage(
-      {super.key, required this.imageView, required this.description, required this.images});
+      {super.key,
+      required this.imageView,
+      required this.description,
+      required this.images});
 
   @override
   Widget build(BuildContext context) {
-
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          showDialog(context: context, builder: (context) =>
-              Dialog(
-                child: Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Wrap(children: images, spacing: 10,),
-                      Text(description),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(onPressed: () {
-                          Navigator.pop(context);
-                        }, child: Text("Close")),
-                      )
-                    ],
-                  ),
-                ),
-              ));
+          showDialog(
+              context: context,
+              builder: (context) => Dialog(
+                    child: Card(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Wrap(
+                            children: images,
+                            spacing: 10,
+                          ),
+                          Text(description),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(AppLocalizations.of(context)!
+                                    .closeItemDetailsDialog)),
+                          )
+                        ],
+                      ),
+                    ),
+                  ));
         },
-        child: imageView,),
+        child: imageView,
+      ),
     );
   }
-
 }
-
 
 class ItemShopView extends StatelessWidget {
   final Item item;
@@ -54,8 +62,8 @@ class ItemShopView extends StatelessWidget {
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
     bool inCart = cart.isInCart(item);
-    var itemImage = getItemImage(inCart);
-    var itemAction = getItemAction(inCart, cart);
+    var itemImage = getItemImage(context, inCart);
+    var itemAction = getItemAction(context, inCart, cart);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -65,7 +73,8 @@ class ItemShopView extends StatelessWidget {
           elevation: 2,
           child: Column(
             children: [
-              ResponsiveImage(imageView: itemImage,
+              ResponsiveImage(
+                  imageView: itemImage,
                   description: item.description,
                   images: [
                     item.image,
@@ -79,32 +88,32 @@ class ItemShopView extends StatelessWidget {
     );
   }
 
-  Widget getItemImage(bool inCart) {
+  Widget getItemImage(BuildContext context, bool inCart) {
     return inCart
         ? Stack(children: [
-      item.image,
-      const Text(
-        "Already in the bag",
-        style: TextStyle(color: Colors.white),
-      )
-    ])
+            item.image,
+            Text(
+              AppLocalizations.of(context)!.alreadyInBag,
+              style: TextStyle(color: Colors.white),
+            )
+          ])
         : item.image;
   }
 
-  Widget getItemAction(bool inCart, ShoppingCart cart) {
+  Widget getItemAction(BuildContext context, bool inCart, ShoppingCart cart) {
     return inCart
         ? ElevatedButton(
-      onPressed: () {
-        cart.removeItem(item);
-      },
-      child: Text("Return item"),
-    )
+            onPressed: () {
+              cart.removeItem(item);
+            },
+            child: Text(AppLocalizations.of(context)!.returnItem),
+          )
         : ElevatedButton(
-      onPressed: () {
-        cart.addItem(item);
-      },
-      child: Text("Pick item"),
-    );
+            onPressed: () {
+              cart.addItem(item);
+            },
+            child: Text(AppLocalizations.of(context)!.addItem),
+          );
   }
 }
 
