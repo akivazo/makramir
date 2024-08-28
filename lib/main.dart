@@ -108,10 +108,18 @@ class Logo extends StatelessWidget {
 class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var textStyle = Localizations
+        .localeOf(context)
+        .languageCode == 'he' ?
+    TextStyle(color: Colors.deepPurple,
+        fontSize: 40,
+        fontFamily: "DanaYad",
+        fontWeight: FontWeight.bold) :
+    GoogleFonts.caveat(
+        color: Colors.deepPurple, textStyle: TextStyle(fontSize: 40));
     return Text(
       AppLocalizations.of(context)!.introduction,
-      style: GoogleFonts.caveat(
-          textStyle: TextStyle(color: Colors.deepPurple, fontSize: 40)),
+      style: textStyle,
       textAlign: TextAlign.center,
     );
   }
