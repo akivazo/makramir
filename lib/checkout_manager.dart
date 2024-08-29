@@ -10,8 +10,6 @@ class CheckoutManager {
 
   CheckoutView getCheckoutView(BuildContext context) {
     void openPaymentTerminalDelegate(Map<String, String> clientDetails) {
-
-
       var paymentManager = PaymentManager();
       var paymentView = paymentManager.getPaymentTerminalView(clientDetails,
           itemsToCheckout.fold(0, (cost, item) => item.cost + cost));
@@ -35,7 +33,8 @@ class FirstNameField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.firstName),
+      decoration:
+          InputDecoration(labelText: AppLocalizations.of(context)!.firstName),
       autofocus: true,
       onSaved: (value) => saveFieldValue("first_name", value ?? ''),
       validator: (value) {
@@ -54,7 +53,8 @@ class LastNameField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.lastName),
+      decoration:
+          InputDecoration(labelText: AppLocalizations.of(context)!.lastName),
       autofocus: false,
       onSaved: (value) => saveFieldValue("last_name", value ?? ''),
       validator: (value) {
@@ -73,7 +73,8 @@ class EmailField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.email),
+      decoration:
+          InputDecoration(labelText: AppLocalizations.of(context)!.email),
       autofocus: true,
       onSaved: (value) => saveFieldValue("email", value ?? ''),
       validator: (value) {
@@ -95,9 +96,8 @@ class AddressField extends FormField {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.address
-
-      ),
+      decoration:
+          InputDecoration(labelText: AppLocalizations.of(context)!.address),
       autofocus: false,
       onSaved: (value) => saveFieldValue("address", value ?? ''),
       validator: (value) {
@@ -123,21 +123,68 @@ class CheckoutForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(
+            child: Text(
+          AppLocalizations.of(context)!.checkoutFormTitle,
+          style: TextStyle(fontSize: 20),
+        )),
+        Form(
+            key: _formKey,
+            child: Card(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  FirstNameField(saveFieldValue: _setFieldValue),
+                  LastNameField(saveFieldValue: _setFieldValue),
+                  EmailField(saveFieldValue: _setFieldValue),
+                  AddressField(saveFieldValue: _setFieldValue)
+                ],
+              ),
+
+            )),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            /**if (saveForm()) {
+                paymentMethod(_fieldsMap);
+                }**/
+            paymentMethod(_fieldsMap);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.checkoutSaveButton,
+                style: TextStyle(color: Colors.black),
+              ),
+              Icon(Icons.navigate_next)
+            ],
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.amber,
+          ),
+        ),
+      ],
+    );
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: SizedBox(
         height: 400,
-        child: Card(
-          elevation: 20,
-          child: LayoutBuilder(builder: (context, constraint) {
-            return Container(
-              width: constraint.maxWidth > 400 ? constraint.maxWidth / 3 : constraint.maxWidth * (2/3),
+        child: LayoutBuilder(builder: (context, constraint) {
+          return Container(
+            width: constraint.maxWidth > 400
+                ? constraint.maxWidth / 3
+                : constraint.maxWidth * (2 / 3),
+            child: Card(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Center(
                       child: Text(
-                        AppLocalizations.of(context)!.checkoutFormTitle,
+                    AppLocalizations.of(context)!.checkoutFormTitle,
                     style: TextStyle(fontSize: 20),
                   )),
                   Form(
@@ -145,7 +192,7 @@ class CheckoutForm extends StatelessWidget {
                       child: ListView(
                         shrinkWrap: true,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                         children: [
                           FirstNameField(saveFieldValue: _setFieldValue),
                           LastNameField(saveFieldValue: _setFieldValue),
@@ -159,8 +206,8 @@ class CheckoutForm extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         /**if (saveForm()) {
-                          paymentMethod(_fieldsMap);
-                        }**/
+                            paymentMethod(_fieldsMap);
+                            }**/
                         paymentMethod(_fieldsMap);
                       },
                       child: Row(
@@ -181,9 +228,9 @@ class CheckoutForm extends StatelessWidget {
                   )
                 ],
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -218,10 +265,14 @@ class CheckoutView extends StatelessWidget {
           },
         ),
       ),
-      body: Center(
-          child: CheckoutForm(
-                  paymentMethod: openPaymentTerminal,
-                )),
+      body: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: 500,
+            child: CheckoutForm(
+              paymentMethod: openPaymentTerminal,
+            ),
+          )),
     );
   }
 }
