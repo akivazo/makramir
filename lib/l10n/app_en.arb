@@ -38,9 +38,7 @@
         "type": "int"
       }
     }
-  }
-
-
-
-
+  },
+  "demoTitle": "Demo version",
+  "demoContent": "This site is in demo stage, for presentation purposes only."
 }

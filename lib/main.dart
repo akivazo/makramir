@@ -50,14 +50,7 @@ class MainApp extends StatelessWidget {
                         child: Logo(),
                         alignment: Alignment(-0.25, 0),
                       ),
-                      AlertDialog(
-                        title: Center(child: Text("Demo version", textAlign: TextAlign.center,)),
-                        content: Center(child: Text("This site is in demo stage, for presentation purposes only.", textAlign: TextAlign.center)),
-                        titleTextStyle: TextStyle(color: Colors.red, decoration: TextDecoration.underline),
-
-                        contentTextStyle: TextStyle(color: Colors.red),
-
-                      ),
+                      DemoDialog(),
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Introduction(),
@@ -79,6 +72,19 @@ class MainApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class DemoDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Center(child: Text(AppLocalizations.of(context)!.demoTitle, textAlign: TextAlign.center,)),
+      content: Center(child: Text(AppLocalizations.of(context)!.demoContent, textAlign: TextAlign.center)),
+      titleTextStyle: TextStyle(color: Colors.red, decoration: TextDecoration.underline),
+      contentTextStyle: TextStyle(color: Colors.red),
+    );
+  }
+
 }
 
 class ItemsView extends StatelessWidget {

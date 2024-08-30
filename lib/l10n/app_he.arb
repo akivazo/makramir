@@ -21,5 +21,7 @@
   "noItemsInBag": "לא נבחרו פריטים.",
   "emptyBagTip": "הוסף פריטים ע''י לחיצה על הכפתור \"הוסף מוצר\" מתחת לתמונת המוצר.",
   "closeDrawer": "סגור",
-  "itemCost": "₪ {amount}"
+  "itemCost": "₪ {amount}",
+  "demoTitle": "גרסת דמו",
+  "demoContent": "האתר נמצא כעת בגרסת דמו, לצורכי תצוגה בלבד."
 }
