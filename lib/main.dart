@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'shopping_cart.dart';
@@ -40,12 +41,22 @@ class MainApp extends StatelessWidget {
             ),
             child: Stack(
               children: [
+
                 SingleChildScrollView(
                   child: Column(
                     children: [
+
                       Align(
                         child: Logo(),
                         alignment: Alignment(-0.25, 0),
+                      ),
+                      AlertDialog(
+                        title: Center(child: Text("Demo version", textAlign: TextAlign.center,)),
+                        content: Center(child: Text("This site is in demo stage, for presentation purposes only.", textAlign: TextAlign.center)),
+                        titleTextStyle: TextStyle(color: Colors.red, decoration: TextDecoration.underline),
+
+                        contentTextStyle: TextStyle(color: Colors.red),
+
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -62,6 +73,7 @@ class MainApp extends StatelessWidget {
                   child: CartIcon(),
                   alignment: Alignment.topLeft,
                 ),
+
               ],
             )),
       ),
