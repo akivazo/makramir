@@ -34,7 +34,7 @@ class PaymentTerminalView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("This app is in the demo stage. No payment currently. To purchase the products try email the owner:"),
+                  Text(AppLocalizations.of(context)!.paymentDemoStage),
                   SelectableText("miryam334@gmail.com")
                 ],
               ))),

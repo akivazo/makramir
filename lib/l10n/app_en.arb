@@ -40,5 +40,7 @@
     }
   },
   "demoTitle": "Demo version",
-  "demoContent": "This site is in demo stage, for presentation purposes only."
+  "demoContent": "This site is in demo stage, for presentation purposes only.",
+  "paymentDemoStage": "This site is in demo stage. No payment currently. To purchase the products try email the owner:"
+
 }
