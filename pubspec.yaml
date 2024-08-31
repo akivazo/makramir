@@ -46,10 +46,12 @@ flutter:
     - assets/images/item9_1.jpg
     - assets/images/item9_2.jpg
     - assets/images/logo.jpg
-    - assets/fonts/Caveat/static/Caveat-Bold.ttf
 
   fonts:
     - family: DanaYad
       fonts:
         - asset: assets/fonts/DanaYadAlefAlefAlef-Normal.otf
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
 

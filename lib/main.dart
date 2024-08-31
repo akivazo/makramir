@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'shopping_cart.dart';
 import 'items_storage.dart';
 import 'shop.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -153,8 +153,8 @@ class Introduction extends StatelessWidget {
             fontSize: 40,
             fontFamily: "DanaYad",
             fontWeight: FontWeight.bold)
-        : GoogleFonts.caveat(
-            color: Colors.deepPurple, textStyle: TextStyle(fontSize: 40));
+        : TextStyle(
+            color: Colors.deepPurple, fontSize: 40, fontFamily: "Caveat");
     return Text(
       AppLocalizations.of(context)!.introduction,
       style: textStyle,
