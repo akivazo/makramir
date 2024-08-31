@@ -147,10 +147,9 @@ class CheckoutForm extends StatelessWidget {
         SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
-            /**if (saveForm()) {
-                paymentMethod(_fieldsMap);
-                }**/
-            paymentMethod(_fieldsMap);
+            if (saveForm()) {
+              paymentMethod(_fieldsMap);
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
