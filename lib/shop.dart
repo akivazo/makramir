@@ -108,14 +108,16 @@ class ItemShopView extends StatelessWidget {
           elevation: 2,
           child: Column(
             children: [
-              ResponsiveImage(
-                imageView: itemImage,
-                description: item.description,
-                images: [
-                  item.image,
-                  if (item.extraImages != null) ...item.extraImages!
-                ],
-                cost: item.cost,
+              Expanded(
+                child: ResponsiveImage(
+                  imageView: itemImage,
+                  description: item.description,
+                  images: [
+                    item.image,
+                    if (item.extraImages != null) ...item.extraImages!
+                  ],
+                  cost: item.cost,
+                ),
               ),
               itemAction
             ],

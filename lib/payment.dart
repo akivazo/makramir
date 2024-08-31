@@ -11,8 +11,8 @@ class PaymentManager {
 }
 
 class PaymentTerminalView extends StatelessWidget {
-  Map<String, String> clientDetails;
-  int amount;
+  final Map<String, String> clientDetails;
+  final int amount;
 
   PaymentTerminalView(
       {super.key, required this.clientDetails, required this.amount});

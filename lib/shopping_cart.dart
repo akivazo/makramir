@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
