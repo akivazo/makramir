@@ -56,15 +56,14 @@ class HomePage extends StatelessWidget {
                       child: Logo(),
                       alignment: Alignment(-0.25, 0),
                     ),
-                    DemoDialog(),
+
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Introduction(),
                     ),
                     ItemsView(),
-                    SizedBox(
-                      height: 100,
-                    )
+
+                    DemoDialog(),
                   ],
                 ),
               ),
