@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "makramir-d577f"
-  }
+    "default": "makramir-d577f",
+    "macramir": "macramir-3d804"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

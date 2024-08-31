@@ -2,6 +2,8 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'item.dart';
+import 'checkout_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ItemCartView extends StatelessWidget {
   final Item item;
@@ -23,9 +25,14 @@ class ItemCartView extends StatelessWidget {
                     child: Icon(Icons.close)))
           ],
         ),
-        Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text("${item.cost.toString()} \$", style: TextStyle(color: Colors.red),)),
+        Card(elevation: 2, child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Text(AppLocalizations.of(context)!.itemCost(item.cost), style: TextStyle(color: Colors.black),),
+            ],
+          ),
+        )),
       ]),
     );
   }
@@ -35,12 +42,26 @@ class ItemsInCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<ShoppingCart>();
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-          children: cart.getItemsInCart().map((item) {
-        return ItemCartView(item: item);
-      }).toList()),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+              children: cart.getItemsInCart().map((item) {
+                return ItemCartView(item: item);
+              }).toList())),
+        ),
+        Card(
+          child: Wrap(
+            spacing: 10,
+            children: [
+              CheckoutButton(),
+              ClearItemsButton(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -55,7 +76,7 @@ class ClearItemsButton extends StatelessWidget {
         cart.clearItems();
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-      child: Text('Clear items', style: TextStyle(color: Colors.black)),
+      child: Text(AppLocalizations.of(context)!.cartClearItems, style: TextStyle(color: Colors.black)),
     );
   }
 }
@@ -66,43 +87,61 @@ class CheckoutButton extends StatelessWidget {
     var cart = context.watch<ShoppingCart>();
     return ElevatedButton(
       onPressed: () {
-        // Button action
+        var checkoutManager = CheckoutManager(itemsToCheckout: cart.getItemsInCart());
+        Navigator.push(context, MaterialPageRoute(builder: (context) => checkoutManager.getCheckoutView(context)));
       },
       style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       child: Text(
-        'Proceed to checkout (${cart.getTotalAmount()} \$)',
+        AppLocalizations.of(context)!.proceedToCheckout(cart.getTotalAmount()),
         style: TextStyle(color: Colors.black),
       ),
     );
   }
 }
 
+class EmptyCartView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(AppLocalizations.of(context)!.noItemsInBag, style: TextStyle(fontSize: 20),),
+            Text(
+              AppLocalizations.of(context)!.emptyBagTip,
+              maxLines: 2, textAlign: TextAlign.center,)
+          ],
+        ));
+  }
+
+
+}
 class ShoppingCartView extends StatelessWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ShoppingCartView({super.key, required this.scaffoldKey});
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraint) {
-        var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth - (constraint.maxWidth / 8);
+        var drawerWidth = constraint.maxWidth > 500 ? 500 : constraint.maxWidth;
+        var cart = context.watch<ShoppingCart>();
+        var drawerBody = cart.getNumberOfItemsInCart() == 0 ? Expanded(child: EmptyCartView()) : Expanded(child: ItemsInCartView());
         return Drawer(
           width: drawerWidth.toDouble(),
-          child: Column(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: ItemsInCartView()),
-              Card(
-                child: Wrap(
-                  spacing: 10,
-                  children: [
-                    CheckoutButton(),
-                    ClearItemsButton(),
-                  ],
-                ),
-              ),
+              drawerBody,
+              Align(child: ElevatedButton.icon(label: Text(AppLocalizations.of(context)!.closeDrawer), onPressed: scaffoldKey.currentState!.closeDrawer, icon: Icon(Icons.arrow_back)), alignment: Alignment(1, 0),),
             ],
           ),
         );
       }
     );
   }
+
 }
 
 class ShoppingCart extends ChangeNotifier {
@@ -148,8 +187,8 @@ class ShoppingCart extends ChangeNotifier {
     return getItemsInCart().length;
   }
 
-  Widget getShoppingCartView(BuildContext context) {
-    return ShoppingCartView();
+  Widget getShoppingCartView(GlobalKey<ScaffoldState> scaffoldKey) {
+    return ShoppingCartView(scaffoldKey: scaffoldKey,);
   }
 
   void clearItems() {

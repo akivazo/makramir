@@ -10,7 +10,8 @@ class ItemsStorage {
         id: index,
         image: Image(image: AssetImage('assets/images/item${index + 1}_1.jpg'), width: 200, height: 400,),
         cost: rng.nextInt(10),
-        description: index.toString()
+        description: "item #${index.toString()}",
+        extraImages: {Image(image: AssetImage('assets/images/item${index + 1}_2.jpg'), width: 200, height: 400)}
       );
     }).toSet();
   }

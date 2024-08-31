@@ -1,11 +1,11 @@
 {
-    "name": "shopping",
-    "short_name": "shopping",
+    "name": "Macramir - macrame products - demo",
+    "short_name": "mcaramir",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Beautiful macrame products made by Miryam",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

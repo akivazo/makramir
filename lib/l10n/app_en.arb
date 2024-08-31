@@ -1,0 +1,46 @@
+{
+  "introduction": "Welcome to Macramir, Miryam’s Macrame Creations! 🌟 Dive into a world of intricate knots and beautiful designs, all handcrafted with love by Miryam herself. Each piece is a testament to her connection for this timeless art form, blending traditional techniques with modern aesthetics. From elegant wall hangings to charming plant holders, Miryam’s creations are perfect for adding a touch of bohemian elegance to any space. Explore our collection and find the perfect piece to bring warmth and creativity into your home. Every item is made with care, ensuring you receive a unique and high-quality product that you’ll cherish for years to come.",
+  "@introduction": {
+    "description": "Introduction to Macramir shop"
+  },
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "address": "Address For Shipping",
+  "firstNameInvalid": "Please enter your first name",
+  "lastNameInvalid": "Please enter your last name",
+  "emailInvalid": "Please enter a valid email address",
+  "addressInvalid": "Please enter your shipping address",
+  "checkoutFormTitle": "Enter your information:",
+  "checkoutPageTitle": "Checkout",
+  "checkoutSaveButton": "Payment",
+  "paymentPageTitle": "Payment",
+  "closeItemDetailsDialog": "Close",
+  "alreadyInBag": "Already in the bag",
+  "returnItem": "Return item",
+  "addItem": "Pick item",
+  "cartClearItems": "Clear items",
+  "proceedToCheckout": "Proceed to checkout ({totalAmount} ₪)",
+  "@proceedToCheckout": {
+    "placeholders": {
+      "totalAmount": {
+        "type": "int"
+      }
+    }
+  },
+  "noItemsInBag": "No items were picked",
+  "emptyBagTip": "Add items by pressing the 'Pick Item' button under the item image.",
+  "closeDrawer": "close",
+  "itemCost": "{amount} ₪",
+  "@itemCost": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "demoTitle": "Demo version",
+  "demoContent": "This site is in demo stage, for presentation purposes only.",
+  "paymentDemoStage": "This site is in demo stage. No payment currently. To purchase the products try email the owner:"
+
+}
